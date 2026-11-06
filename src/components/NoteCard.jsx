@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+//for late commit
 function NoteCard({ title, body }) {
   const [isOpen, setIsOpen] = useState(false)
 
