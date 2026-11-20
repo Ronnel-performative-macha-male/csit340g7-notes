@@ -12,12 +12,26 @@ const startingNotes = [
     body: 'Practice writing one handler for many inputs.',
   },
 ]
+function loadDraft() {
+  const empty = { title: '', body: '' }
+  try {
+    const saved = localStorage.getItem('draft')
+    if (!saved) return empty
+    const draft = JSON.parse(saved)
+    return {
+      title: typeof draft?.title === 'string' ? draft.title : '',
+      body: typeof draft?.body === 'string' ? draft.body : '',
+    }
+  } catch {
+    return empty
+  }
+}
 function Notes(){
     const [notes, setNotes] = useState(() => {
     const saved = localStorage.getItem('notes')
     return saved ? JSON.parse(saved) : startingNotes
  })
-    const [form, setForm] = useState({ title: '', body: '' })
+    const [form, setForm] = useState(loadDraft)
     const [search, setSearch] = useState('')
     const titleRef = useRef(null)
     
